@@ -28,7 +28,27 @@ export const genericPageType = defineType({
             name: 'content',
             title: 'Content',
             type: 'array',
-            of: [{ type: 'blockContent' }]
+            of: [
+                { type: 'sectionText' },
+                { type: 'sectionImage' },
+                { type: 'sectionGallery' },
+                { type: 'sectionHero' },
+                { type: 'sectionCards' },
+                { type: 'sectionZones' },
+                { type: 'sectionFaq' },
+                { type: 'sectionPrices' },
+                // Legacy blocks
+                { type: 'textBlock' },
+                { type: 'imageBlock' },
+                { type: 'galleryBlock' },
+                { type: 'video' },
+                { type: 'ctaBlock' },
+                { type: 'featureListBlock' },
+                { type: 'testimonialBlock' },
+                { type: 'accordionBlock' },
+                { type: 'contactFormBlock' },
+                { type: 'mapBlock' }
+            ]
         })
     ]
 })
@@ -64,7 +84,7 @@ export const faqPageType = defineType({
                     type: 'object',
                     fields: [
                         { name: 'question', title: 'Question', type: 'string' },
-                        { name: 'answer', title: 'Answer', type: 'blockContent' }
+                        { name: 'answer', title: 'blockContent' }
                     ]
                 }
             ]
@@ -73,7 +93,27 @@ export const faqPageType = defineType({
             name: 'content',
             title: 'Content',
             type: 'array',
-            of: [{ type: 'blockContent' }]
+            of: [
+                { type: 'sectionText' },
+                { type: 'sectionImage' },
+                { type: 'sectionGallery' },
+                { type: 'sectionHero' },
+                { type: 'sectionCards' },
+                { type: 'sectionZones' },
+                { type: 'sectionFaq' },
+                { type: 'sectionPrices' },
+                // Legacy blocks
+                { type: 'textBlock' },
+                { type: 'imageBlock' },
+                { type: 'galleryBlock' },
+                { type: 'video' },
+                { type: 'ctaBlock' },
+                { type: 'featureListBlock' },
+                { type: 'testimonialBlock' },
+                { type: 'accordionBlock' },
+                { type: 'contactFormBlock' },
+                { type: 'mapBlock' }
+            ]
         })
     ]
 })
@@ -139,7 +179,27 @@ export const newsPageType = defineType({
             name: 'content',
             title: 'Content',
             type: 'array',
-            of: [{ type: 'blockContent' }]
+            of: [
+                { type: 'sectionText' },
+                { type: 'sectionImage' },
+                { type: 'sectionGallery' },
+                { type: 'sectionHero' },
+                { type: 'sectionCards' },
+                { type: 'sectionZones' },
+                { type: 'sectionFaq' },
+                { type: 'sectionPrices' },
+                // Legacy blocks
+                { type: 'textBlock' },
+                { type: 'imageBlock' },
+                { type: 'galleryBlock' },
+                { type: 'video' },
+                { type: 'ctaBlock' },
+                { type: 'featureListBlock' },
+                { type: 'testimonialBlock' },
+                { type: 'accordionBlock' },
+                { type: 'contactFormBlock' },
+                { type: 'mapBlock' }
+            ]
         })
     ]
 })
@@ -224,7 +284,27 @@ export const eventPageType = defineType({
             name: 'content',
             title: 'Content',
             type: 'array',
-            of: [{ type: 'blockContent' }]
+            of: [
+                { type: 'sectionText' },
+                { type: 'sectionImage' },
+                { type: 'sectionGallery' },
+                { type: 'sectionHero' },
+                { type: 'sectionCards' },
+                { type: 'sectionZones' },
+                { type: 'sectionFaq' },
+                { type: 'sectionPrices' },
+                // Legacy blocks
+                { type: 'textBlock' },
+                { type: 'imageBlock' },
+                { type: 'galleryBlock' },
+                { type: 'video' },
+                { type: 'ctaBlock' },
+                { type: 'featureListBlock' },
+                { type: 'testimonialBlock' },
+                { type: 'accordionBlock' },
+                { type: 'contactFormBlock' },
+                { type: 'mapBlock' }
+            ]
         }),
         defineField({
             name: 'heroVideo',
@@ -266,7 +346,27 @@ export const zonePageType = defineType({
             name: 'content',
             title: 'Content',
             type: 'array',
-            of: [{ type: 'blockContent' }]
+            of: [
+                { type: 'sectionText' },
+                { type: 'sectionImage' },
+                { type: 'sectionGallery' },
+                { type: 'sectionHero' },
+                { type: 'sectionCards' },
+                { type: 'sectionZones' },
+                { type: 'sectionFaq' },
+                { type: 'sectionPrices' },
+                // Legacy blocks
+                { type: 'textBlock' },
+                { type: 'imageBlock' },
+                { type: 'galleryBlock' },
+                { type: 'video' },
+                { type: 'ctaBlock' },
+                { type: 'featureListBlock' },
+                { type: 'testimonialBlock' },
+                { type: 'accordionBlock' },
+                { type: 'contactFormBlock' },
+                { type: 'mapBlock' }
+            ]
         })
     ]
 })
@@ -327,7 +427,27 @@ export const zonesListingPageType = defineType({
             name: 'content',
             title: 'Content',
             type: 'array',
-            of: [{ type: 'blockContent' }]
+            of: [
+                { type: 'sectionText' },
+                { type: 'sectionImage' },
+                { type: 'sectionGallery' },
+                { type: 'sectionHero' },
+                { type: 'sectionCards' },
+                { type: 'sectionZones' },
+                { type: 'sectionFaq' },
+                { type: 'sectionPrices' },
+                // Legacy blocks
+                { type: 'textBlock' },
+                { type: 'imageBlock' },
+                { type: 'galleryBlock' },
+                { type: 'video' },
+                { type: 'ctaBlock' },
+                { type: 'featureListBlock' },
+                { type: 'testimonialBlock' },
+                { type: 'accordionBlock' },
+                { type: 'contactFormBlock' },
+                { type: 'mapBlock' }
+            ]
         })
     ]
 })
@@ -411,7 +531,27 @@ export const pricesPageType = defineType({
             name: 'content',
             title: 'Content',
             type: 'array',
-            of: [{ type: 'blockContent' }]
+            of: [
+                { type: 'sectionText' },
+                { type: 'sectionImage' },
+                { type: 'sectionGallery' },
+                { type: 'sectionHero' },
+                { type: 'sectionCards' },
+                { type: 'sectionZones' },
+                { type: 'sectionFaq' },
+                { type: 'sectionPrices' },
+                // Legacy blocks
+                { type: 'textBlock' },
+                { type: 'imageBlock' },
+                { type: 'galleryBlock' },
+                { type: 'video' },
+                { type: 'ctaBlock' },
+                { type: 'featureListBlock' },
+                { type: 'testimonialBlock' },
+                { type: 'accordionBlock' },
+                { type: 'contactFormBlock' },
+                { type: 'mapBlock' }
+            ]
         })
     ]
 })
@@ -468,7 +608,27 @@ export const ticketsPageType = defineType({
             name: 'content',
             title: 'Content',
             type: 'array',
-            of: [{ type: 'blockContent' }]
+            of: [
+                { type: 'sectionText' },
+                { type: 'sectionImage' },
+                { type: 'sectionGallery' },
+                { type: 'sectionHero' },
+                { type: 'sectionCards' },
+                { type: 'sectionZones' },
+                { type: 'sectionFaq' },
+                { type: 'sectionPrices' },
+                // Legacy blocks
+                { type: 'textBlock' },
+                { type: 'imageBlock' },
+                { type: 'galleryBlock' },
+                { type: 'video' },
+                { type: 'ctaBlock' },
+                { type: 'featureListBlock' },
+                { type: 'testimonialBlock' },
+                { type: 'accordionBlock' },
+                { type: 'contactFormBlock' },
+                { type: 'mapBlock' }
+            ]
         })
     ]
 })
@@ -542,7 +702,27 @@ export const informationsPageType = defineType({
             name: 'content',
             title: 'Content',
             type: 'array',
-            of: [{ type: 'blockContent' }]
+            of: [
+                { type: 'sectionText' },
+                { type: 'sectionImage' },
+                { type: 'sectionGallery' },
+                { type: 'sectionHero' },
+                { type: 'sectionCards' },
+                { type: 'sectionZones' },
+                { type: 'sectionFaq' },
+                { type: 'sectionPrices' },
+                // Legacy blocks
+                { type: 'textBlock' },
+                { type: 'imageBlock' },
+                { type: 'galleryBlock' },
+                { type: 'video' },
+                { type: 'ctaBlock' },
+                { type: 'featureListBlock' },
+                { type: 'testimonialBlock' },
+                { type: 'accordionBlock' },
+                { type: 'contactFormBlock' },
+                { type: 'mapBlock' }
+            ]
         })
     ]
-}) 
+})
