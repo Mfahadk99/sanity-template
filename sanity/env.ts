@@ -20,5 +20,5 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 // Additional environment variables for development
-export const previewSecret = process.env.SANITY_PREVIEW_SECRET || 'preview-secret'
-export const token = process.env.SANITY_API_READ_TOKEN
+export const previewSecret = process.env.NEXT_PUBLIC_SANITY_PREVIEW_SECRET || 'preview-secret'
+export const token = process.env.NEXT_PUBLIC_SANITY_API_READ_TOKEN
