@@ -1,6 +1,6 @@
 
 import { defineType, defineField, defineArrayMember } from 'sanity'
-import { DocumentIcon, QuestionMarkCircledIcon, DocumentTextIcon, CalendarIcon, ComponentIcon, ListBulletIcon, ImageIcon, CreditCardIcon, InfoCircledIcon } from '@sanity/icons'
+import { DocumentIcon, CommentIcon, DocumentTextIcon, CalendarIcon, ComponentIcon, ImageIcon, CreditCardIcon } from '@sanity/icons'
 
 // Generic Page Type
 export const genericPageType = defineType({
@@ -60,7 +60,7 @@ export const faqPageType = defineType({
   name: 'faqPage',
   title: 'FAQ Page',
   type: 'document',
-  icon: QuestionMarkCircledIcon,
+  icon: CommentIcon,
   fields: [
     defineField({
       name: 'title',
@@ -371,7 +371,7 @@ export const zonesListingPageType = defineType({
   name: 'zonesListingPage',
   title: 'Zones Listing',
   type: 'document',
-  icon: ListBulletIcon,
+  icon: DocumentIcon,
   fields: [
     defineField({
       name: 'title',
@@ -624,7 +624,7 @@ export const informationsPageType = defineType({
   name: 'informationsPage',
   title: 'Informations Page',
   type: 'document',
-  icon: InfoCircledIcon,
+  icon: CreditCardIcon,
   fields: [
     defineField({
       name: 'title',

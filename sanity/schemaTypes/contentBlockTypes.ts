@@ -1,5 +1,5 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
-import { BlockElementIcon, ImageIcon, ImagesIcon, SparkleIcon, ComponentIcon, QuestionMarkCircledIcon, CreditCardIcon, DocumentTextIcon } from '@sanity/icons'
+import { BlockElementIcon, ImageIcon, ImagesIcon, SparkleIcon, ComponentIcon, CreditCardIcon, DocumentTextIcon } from '@sanity/icons'
 
 // Section Text Type
 export const sectionTextType = defineType({
@@ -387,7 +387,7 @@ export const sectionFaqType = defineType({
   name: 'sectionFaq',
   title: 'FAQ Section',
   type: 'object',
-  icon: QuestionMarkCircledIcon,
+  icon: ComponentIcon,
   fields: [
     defineField({
       name: 'questions',
