@@ -1,932 +1,683 @@
-
 import { defineType, defineField, defineArrayMember } from 'sanity'
+import { BlockElementIcon, ImageIcon, ImagesIcon, SparkleIcon, ComponentIcon, QuestionMarkCircledIcon, CreditCardIcon, DocumentTextIcon } from '@sanity/icons'
 
-// Section Text - replaces textBlock with variants and margin options
+// Section Text Type
 export const sectionTextType = defineType({
-    name: 'sectionText',
-    title: 'Section Text',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'title',
-            title: 'Title',
-            type: 'string'
-        }),
-        defineField({
-            name: 'richText',
-            title: 'Rich Text',
-            type: 'blockContent'
-        }),
-        defineField({
-            name: 'variant',
-            title: 'Layout Variant',
-            type: 'string',
-            options: {
-                list: [
-                    { title: 'One Column', value: 'oneColumn' },
-                    { title: 'Two Columns', value: 'twoColumns' }
-                ]
-            },
-            initialValue: 'oneColumn'
-        }),
-        defineField({
-            name: 'margin',
-            title: 'Margin',
-            type: 'string',
-            options: {
-                list: [
-                    { title: 'Small', value: 's' },
-                    { title: 'Medium', value: 'm' },
-                    { title: 'Large', value: 'l' }
-                ]
-            },
-            initialValue: 'm'
-        })
-    ],
-    preview: {
-        select: {
-            title: 'title',
-            variant: 'variant'
-        },
-        prepare({ title, variant }) {
-            return {
-                title: title || 'Section Text',
-                subtitle: `Text - ${variant || 'one column'}`
-            }
-        }
+  name: 'sectionText',
+  title: 'Text Section',
+  type: 'object',
+  icon: BlockElementIcon,
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string'
+    }),
+    defineField({
+      name: 'content',
+      title: 'Content',
+      type: 'blockContent'
+    }),
+    defineField({
+      name: 'variant',
+      title: 'Layout Variant',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'One Column', value: 'one-column' },
+          { title: 'Two Columns', value: 'two-columns' }
+        ]
+      },
+      initialValue: 'one-column'
+    }),
+    defineField({
+      name: 'margin',
+      title: 'Margin',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Small', value: 's' },
+          { title: 'Medium', value: 'm' },
+          { title: 'Large', value: 'l' }
+        ]
+      },
+      initialValue: 'm'
+    })
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      variant: 'variant'
+    },
+    prepare(selection) {
+      return {
+        title: selection.title || 'Text Section',
+        subtitle: selection.variant
+      }
     }
+  }
 })
 
-// Section Image - enhanced image block with layout variants
+// Section Image Type
 export const sectionImageType = defineType({
-    name: 'sectionImage',
-    title: 'Section Image',
-    type: 'object',
-    fields: [
+  name: 'sectionImage',
+  title: 'Image Section',
+  type: 'object',
+  icon: ImageIcon,
+  fields: [
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {
+        hotspot: true
+      },
+      fields: [
         defineField({
-            name: 'image',
-            title: 'Image',
-            type: 'image',
-            options: { hotspot: true },
-            fields: [
-                {
-                    name: 'alt',
-                    title: 'Alternative Text',
-                    type: 'string',
-                    validation: Rule => Rule.required()
-                }
-            ]
-        }),
-        defineField({
-            name: 'title',
-            title: 'Title',
-            type: 'string'
-        }),
-        defineField({
-            name: 'paragraph',
-            title: 'Paragraph',
-            type: 'blockContent'
-        }),
-        defineField({
-            name: 'layoutVariant',
-            title: 'Layout Variant',
-            type: 'string',
-            options: {
-                list: [
-                    { title: 'Default', value: 'default' },
-                    { title: 'Text Left', value: 'textLeft' },
-                    { title: 'Text Right', value: 'textRight' }
-                ]
-            },
-            initialValue: 'default'
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          validation: Rule => Rule.required()
         })
-    ],
-    preview: {
-        select: {
-            title: 'title',
-            media: 'image',
-            variant: 'layoutVariant'
-        },
-        prepare({ title, media, variant }) {
-            return {
-                title: title || 'Section Image',
-                media,
-                subtitle: `Image - ${variant || 'default'}`
-            }
-        }
+      ],
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string'
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text'
+    }),
+    defineField({
+      name: 'layout',
+      title: 'Layout Variant',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Default', value: 'default' },
+          { title: 'Text Left', value: 'text-left' },
+          { title: 'Text Right', value: 'text-right' }
+        ]
+      },
+      initialValue: 'default'
+    })
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      media: 'image',
+      layout: 'layout'
+    },
+    prepare(selection) {
+      return {
+        title: selection.title || 'Image Section',
+        subtitle: selection.layout,
+        media: selection.media
+      }
     }
+  }
 })
 
-// Section Gallery - with layout options
+// Section Gallery Type
 export const sectionGalleryType = defineType({
-    name: 'sectionGallery',
-    title: 'Section Gallery',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'title',
-            title: 'Gallery Title',
-            type: 'string'
-        }),
-        defineField({
-            name: 'images',
-            title: 'Images',
-            type: 'array',
-            of: [
-                {
-                    type: 'image',
-                    options: { hotspot: true },
-                    fields: [
-                        {
-                            name: 'alt',
-                            title: 'Alternative Text',
-                            type: 'string',
-                            validation: Rule => Rule.required()
-                        }
-                    ]
-                }
-            ]
-        }),
-        defineField({
-            name: 'layout',
-            title: 'Layout',
-            type: 'string',
-            options: {
-                list: [
-                    { title: 'Grid', value: 'grid' },
-                    { title: 'Slider', value: 'slider' }
-                ]
-            },
-            initialValue: 'grid'
+  name: 'sectionGallery',
+  title: 'Gallery Section',
+  type: 'object',
+  icon: ImagesIcon,
+  fields: [
+    defineField({
+      name: 'images',
+      title: 'Images',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'image',
+          options: {
+            hotspot: true
+          },
+          fields: [
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              validation: Rule => Rule.required()
+            })
+          ]
         })
-    ],
-    preview: {
-        select: {
-            title: 'title',
-            media: 'images.0',
-            layout: 'layout'
-        },
-        prepare({ title, media, layout }) {
-            return {
-                title: title || 'Section Gallery',
-                media,
-                subtitle: `Gallery - ${layout || 'grid'}`
-            }
-        }
+      ],
+      validation: Rule => Rule.min(1)
+    }),
+    defineField({
+      name: 'layout',
+      title: 'Layout',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Grid', value: 'grid' },
+          { title: 'Slider', value: 'slider' }
+        ]
+      },
+      initialValue: 'grid'
+    })
+  ],
+  preview: {
+    select: {
+      images: 'images',
+      layout: 'layout'
+    },
+    prepare(selection) {
+      return {
+        title: 'Gallery Section',
+        subtitle: `${selection.images?.length || 0} images - ${selection.layout}`,
+        media: selection.images?.[0]
+      }
     }
+  }
 })
 
-// Section Hero - comprehensive hero section
+// Section Hero Type
 export const sectionHeroType = defineType({
-    name: 'sectionHero',
-    title: 'Section Hero',
-    type: 'object',
-    fields: [
+  name: 'sectionHero',
+  title: 'Hero Section',
+  type: 'object',
+  icon: SparkleIcon,
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string'
+    }),
+    defineField({
+      name: 'introVideo',
+      title: 'Intro Video',
+      type: 'mux.video'
+    }),
+    defineField({
+      name: 'image',
+      title: 'Background Image',
+      type: 'image',
+      options: {
+        hotspot: true
+      },
+      fields: [
         defineField({
-            name: 'title',
-            title: 'Title',
-            type: 'string'
-        }),
-        defineField({
-            name: 'introVideo',
-            title: 'Intro Video',
-            type: 'video'
-        }),
-        defineField({
-            name: 'image',
-            title: 'Background Image',
-            type: 'image',
-            options: { hotspot: true },
-            fields: [
-                {
-                    name: 'alt',
-                    title: 'Alternative Text',
-                    type: 'string'
-                }
-            ]
-        }),
-        defineField({
-            name: 'paragraph',
-            title: 'Paragraph',
-            type: 'blockContent'
-        }),
-        defineField({
-            name: 'link',
-            title: 'Call to Action Link',
-            type: 'object',
-            fields: [
-                { name: 'text', title: 'Link Text', type: 'string' },
-                { name: 'url', title: 'URL', type: 'url' }
-            ]
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string'
         })
-    ],
-    preview: {
-        select: {
-            title: 'title',
-            media: 'image'
-        },
-        prepare({ title, media }) {
-            return {
-                title: title || 'Section Hero',
-                media,
-                subtitle: 'Hero Section'
-            }
-        }
+      ]
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text'
+    }),
+    defineField({
+      name: 'link',
+      title: 'Call to Action Link',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'text',
+          title: 'Link Text',
+          type: 'string'
+        }),
+        defineField({
+          name: 'url',
+          title: 'URL',
+          type: 'url'
+        })
+      ]
+    })
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      media: 'image'
+    },
+    prepare(selection) {
+      return {
+        title: selection.title || 'Hero Section',
+        media: selection.media
+      }
     }
+  }
 })
 
-// Section Cards - flexible card system
+// Section Cards Type
 export const sectionCardsType = defineType({
-    name: 'sectionCards',
-    title: 'Section Cards',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'title',
-            title: 'Section Title',
-            type: 'string'
-        }),
-        defineField({
-            name: 'variant',
-            title: 'Card Variant',
-            type: 'string',
-            options: {
-                list: [
-                    { title: 'Key Dates', value: 'keyDates' },
-                    { title: 'Partners', value: 'partners' },
-                    { title: 'Key Numbers', value: 'keyNumbers' },
-                    { title: 'Standard', value: 'standard' }
-                ]
-            },
-            initialValue: 'standard'
-        }),
-        defineField({
-            name: 'cards',
-            title: 'Cards',
-            type: 'array',
-            of: [
-                {
-                    type: 'object',
-                    fields: [
-                        { name: 'title', title: 'Title', type: 'string' },
-                        { name: 'paragraph', title: 'Paragraph', type: 'blockContent' },
-                        { 
-                            name: 'image', 
-                            title: 'Image', 
-                            type: 'image',
-                            options: { hotspot: true },
-                            fields: [
-                                { name: 'alt', title: 'Alternative Text', type: 'string' }
-                            ]
-                        },
-                        { name: 'link', title: 'Link', type: 'url' }
-                    ]
-                }
-            ]
-        })
-    ],
-    preview: {
-        select: {
-            title: 'title',
-            variant: 'variant'
-        },
-        prepare({ title, variant }) {
-            return {
-                title: title || 'Section Cards',
-                subtitle: `Cards - ${variant || 'standard'}`
-            }
-        }
-    }
-})
-
-// Section Zones - for displaying event zones
-export const sectionZonesType = defineType({
-    name: 'sectionZones',
-    title: 'Section Zones',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'title',
-            title: 'Section Title',
-            type: 'string'
-        }),
-        defineField({
-            name: 'zones',
-            title: 'Zones',
-            type: 'array',
-            of: [
-                {
-                    type: 'reference',
-                    to: [{ type: 'zonePage' }]
-                }
-            ]
-        }),
-        defineField({
-            name: 'link',
-            title: 'See All Link',
-            type: 'object',
-            fields: [
-                { name: 'text', title: 'Link Text', type: 'string' },
-                { name: 'url', title: 'URL', type: 'url' }
-            ]
-        }),
-        defineField({
-            name: 'layout',
-            title: 'Layout Size',
-            type: 'string',
-            options: {
-                list: [
-                    { title: 'Big', value: 'big' },
-                    { title: 'Small', value: 'small' }
-                ]
-            },
-            initialValue: 'big'
-        })
-    ],
-    preview: {
-        select: {
-            title: 'title',
-            layout: 'layout'
-        },
-        prepare({ title, layout }) {
-            return {
-                title: title || 'Section Zones',
-                subtitle: `Zones - ${layout || 'big'} layout`
-            }
-        }
-    }
-})
-
-// Section FAQ - dedicated FAQ section
-export const sectionFaqType = defineType({
-    name: 'sectionFaq',
-    title: 'Section FAQ',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'title',
-            title: 'Section Title',
-            type: 'string'
-        }),
-        defineField({
-            name: 'questions',
-            title: 'Questions',
-            type: 'array',
-            of: [
-                {
-                    type: 'object',
-                    fields: [
-                        { name: 'question', title: 'Question', type: 'string' },
-                        { name: 'answer', title: 'Answer', type: 'blockContent' }
-                    ]
-                }
-            ]
-        })
-    ],
-    preview: {
-        select: {
-            title: 'title'
-        },
-        prepare({ title }) {
-            return {
-                title: title || 'Section FAQ',
-                subtitle: 'FAQ Section'
-            }
-        }
-    }
-})
-
-// Section Prices - complex pricing structure
-export const sectionPricesType = defineType({
-    name: 'sectionPrices',
-    title: 'Section Prices',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'title',
-            title: 'Section Title',
-            type: 'string'
-        }),
-        defineField({
-            name: 'categories',
-            title: 'Price Categories',
-            type: 'array',
-            of: [
-                {
-                    type: 'object',
-                    fields: [
-                        { name: 'categoryName', title: 'Category Name', type: 'string' },
-                        {
-                            name: 'items',
-                            title: 'Price Items',
-                            type: 'array',
-                            of: [
-                                {
-                                    type: 'object',
-                                    fields: [
-                                        { name: 'itemName', title: 'Item Name', type: 'string' },
-                                        {
-                                            name: 'cards',
-                                            title: 'Price Cards',
-                                            type: 'array',
-                                            of: [
-                                                {
-                                                    type: 'object',
-                                                    fields: [
-                                                        { name: 'title', title: 'Title', type: 'string' },
-                                                        { name: 'value', title: 'Price Value', type: 'string' },
-                                                        { name: 'subtitle', title: 'Subtitle', type: 'string' },
-                                                        { name: 'link', title: 'Link', type: 'url' }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        })
-    ],
-    preview: {
-        select: {
-            title: 'title'
-        },
-        prepare({ title }) {
-            return {
-                title: title || 'Section Prices',
-                subtitle: 'Pricing Section'
-            }
-        }
-    }
-})
-
-// Video block (keeping original for backward compatibility)
-export const videoBlockType = defineType({
-    name: 'video',
-    title: 'Video',
-    type: 'object',
-    fields: [
-        {
-            name: 'asset',
-            title: 'Video Asset',
-            type: 'mux.video',
-            description: 'Upload or select a video file'
-        },
-        {
-            name: 'title',
-            title: 'Title',
-            type: 'string',
-            validation: (Rule) => Rule.required()
-        },
-        {
-            name: 'description',
-            title: 'Description',
-            type: 'text',
-            rows: 3
-        },
-        {
-            name: 'thumbnail',
-            title: 'Custom Thumbnail',
-            type: 'image',
-            description: 'Optional: Override auto-generated thumbnail',
-            options: {
+  name: 'sectionCards',
+  title: 'Cards Section',
+  type: 'object',
+  icon: ComponentIcon,
+  fields: [
+    defineField({
+      name: 'cards',
+      title: 'Cards',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              options: {
                 hotspot: true
-            }
-        },
-        {
-            name: 'autoplay',
-            title: 'Autoplay',
-            type: 'boolean',
-            initialValue: false
-        },
-        {
-            name: 'loop',
-            title: 'Loop Video',
-            type: 'boolean',
-            initialValue: false
-        },
-        {
-            name: 'muted',
-            title: 'Muted by Default',
-            type: 'boolean',
-            initialValue: true
-        }
-    ],
-    preview: {
-        select: {
-            title: 'title',
-            media: 'asset'
-        }
+              },
+              fields: [
+                defineField({
+                  name: 'alt',
+                  title: 'Alt Text',
+                  type: 'string'
+                })
+              ]
+            }),
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string'
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text'
+            }),
+            defineField({
+              name: 'link',
+              title: 'Link',
+              type: 'url'
+            })
+          ]
+        })
+      ]
+    }),
+    defineField({
+      name: 'variant',
+      title: 'Variant',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Default', value: 'default' },
+          { title: 'Key Dates', value: 'key-dates' },
+          { title: 'Partners', value: 'partners' },
+          { title: 'Key Numbers', value: 'key-numbers' }
+        ]
+      },
+      initialValue: 'default'
+    })
+  ],
+  preview: {
+    select: {
+      cards: 'cards',
+      variant: 'variant'
+    },
+    prepare(selection) {
+      return {
+        title: 'Cards Section',
+        subtitle: `${selection.cards?.length || 0} cards - ${selection.variant}`
+      }
     }
+  }
 })
 
-// Keep existing blocks for backward compatibility
-export const textBlockType = defineType({
-    name: 'textBlock',
-    title: 'Text Block (Legacy)',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'heading',
-            title: 'Heading',
-            type: 'string'
-        }),
-        defineField({
-            name: 'body',
-            title: 'Body',
-            type: 'blockContent'
+// Section Zones Type
+export const sectionZonesType = defineType({
+  name: 'sectionZones',
+  title: 'Zones Section',
+  type: 'object',
+  icon: ComponentIcon,
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string'
+    }),
+    defineField({
+      name: 'zones',
+      title: 'Zones',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{ type: 'zonePage' }]
         })
-    ],
-    preview: {
-        select: {
-            title: 'heading'
-        },
-        prepare({ title }) {
-            return {
-                title: title || 'Text Block',
-                subtitle: 'Legacy Text Block'
-            }
-        }
+      ]
+    }),
+    defineField({
+      name: 'link',
+      title: 'View All Link',
+      type: 'url'
+    }),
+    defineField({
+      name: 'layout',
+      title: 'Layout',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Big', value: 'big' },
+          { title: 'Small', value: 'small' }
+        ]
+      },
+      initialValue: 'big'
+    })
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      zones: 'zones',
+      layout: 'layout'
+    },
+    prepare(selection) {
+      return {
+        title: selection.title || 'Zones Section',
+        subtitle: `${selection.zones?.length || 0} zones - ${selection.layout}`
+      }
     }
+  }
+})
+
+// Section FAQ Type
+export const sectionFaqType = defineType({
+  name: 'sectionFaq',
+  title: 'FAQ Section',
+  type: 'object',
+  icon: QuestionMarkCircledIcon,
+  fields: [
+    defineField({
+      name: 'questions',
+      title: 'Questions',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'question',
+              title: 'Question',
+              type: 'string',
+              validation: Rule => Rule.required()
+            }),
+            defineField({
+              name: 'answer',
+              title: 'Answer',
+              type: 'blockContent'
+            })
+          ]
+        })
+      ]
+    })
+  ],
+  preview: {
+    select: {
+      questions: 'questions'
+    },
+    prepare(selection) {
+      return {
+        title: 'FAQ Section',
+        subtitle: `${selection.questions?.length || 0} questions`
+      }
+    }
+  }
+})
+
+// Section Prices Type
+export const sectionPricesType = defineType({
+  name: 'sectionPrices',
+  title: 'Prices Section',
+  type: 'object',
+  icon: CreditCardIcon,
+  fields: [
+    defineField({
+      name: 'categories',
+      title: 'Price Categories',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Category Title',
+              type: 'string',
+              validation: Rule => Rule.required()
+            }),
+            defineField({
+              name: 'items',
+              title: 'Price Items',
+              type: 'array',
+              of: [
+                defineArrayMember({
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'title',
+                      title: 'Item Title',
+                      type: 'string',
+                      validation: Rule => Rule.required()
+                    }),
+                    defineField({
+                      name: 'cards',
+                      title: 'Price Cards',
+                      type: 'array',
+                      of: [
+                        defineArrayMember({
+                          type: 'object',
+                          fields: [
+                            defineField({
+                              name: 'title',
+                              title: 'Card Title',
+                              type: 'string'
+                            }),
+                            defineField({
+                              name: 'value',
+                              title: 'Price Value',
+                              type: 'string'
+                            }),
+                            defineField({
+                              name: 'subtitle',
+                              title: 'Subtitle',
+                              type: 'string'
+                            }),
+                            defineField({
+                              name: 'link',
+                              title: 'Purchase Link',
+                              type: 'url'
+                            })
+                          ]
+                        })
+                      ]
+                    })
+                  ]
+                })
+              ]
+            })
+          ]
+        })
+      ]
+    })
+  ],
+  preview: {
+    select: {
+      categories: 'categories'
+    },
+    prepare(selection) {
+      return {
+        title: 'Prices Section',
+        subtitle: `${selection.categories?.length || 0} categories`
+      }
+    }
+  }
+})
+
+// Legacy blocks for backward compatibility
+export const textBlockType = defineType({
+  name: 'textBlock',
+  title: 'Text Block (Legacy)',
+  type: 'object',
+  icon: DocumentTextIcon,
+  fields: [
+    defineField({
+      name: 'content',
+      title: 'Content',
+      type: 'blockContent'
+    })
+  ]
 })
 
 export const imageBlockType = defineType({
-    name: 'imageBlock',
-    title: 'Image Block (Legacy)',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'image',
-            title: 'Image',
-            type: 'image',
-            options: { hotspot: true },
-            fields: [
-                {
-                    name: 'alt',
-                    title: 'Alternative Text',
-                    type: 'string'
-                }
-            ]
-        }),
-        defineField({
-            name: 'caption',
-            title: 'Caption',
-            type: 'string'
-        })
-    ],
-    preview: {
-        select: {
-            media: 'image',
-            title: 'caption'
-        },
-        prepare({ media, title }) {
-            return {
-                title: title || 'Image Block',
-                media,
-                subtitle: 'Legacy Image Block'
-            }
-        }
-    }
+  name: 'imageBlock',
+  title: 'Image Block (Legacy)',
+  type: 'object',
+  icon: ImageIcon,
+  fields: [
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {
+        hotspot: true
+      }
+    })
+  ]
 })
 
 export const galleryBlockType = defineType({
-    name: 'galleryBlock',
-    title: 'Gallery Block (Legacy)',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'title',
-            title: 'Gallery Title',
-            type: 'string'
-        }),
-        defineField({
-            name: 'images',
-            title: 'Images',
-            type: 'array',
-            of: [
-                {
-                    type: 'image',
-                    options: { hotspot: true },
-                    fields: [
-                        {
-                            name: 'alt',
-                            title: 'Alternative Text',
-                            type: 'string'
-                        },
-                        {
-                            name: 'caption',
-                            title: 'Caption',
-                            type: 'string'
-                        }
-                    ]
-                }
-            ]
-        })
-    ],
-    preview: {
-        select: {
-            title: 'title',
-            media: 'images.0'
-        },
-        prepare({ title, media }) {
-            return {
-                title: title || 'Gallery Block',
-                media,
-                subtitle: 'Legacy Gallery Block'
-            }
-        }
-    }
+  name: 'galleryBlock',
+  title: 'Gallery Block (Legacy)',
+  type: 'object',
+  icon: ImagesIcon,
+  fields: [
+    defineField({
+      name: 'images',
+      title: 'Images',
+      type: 'array',
+      of: [{ type: 'image' }]
+    })
+  ]
+})
+
+export const videoBlockType = defineType({
+  name: 'videoBlock',
+  title: 'Video Block (Legacy)',
+  type: 'object',
+  icon: SparkleIcon,
+  fields: [
+    defineField({
+      name: 'video',
+      title: 'Video',
+      type: 'mux.video'
+    })
+  ]
 })
 
 export const ctaBlockType = defineType({
-    name: 'ctaBlock',
-    title: 'Call to Action Block',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'heading',
-            title: 'Heading',
-            type: 'string'
-        }),
-        defineField({
-            name: 'text',
-            title: 'Text',
-            type: 'text'
-        }),
-        defineField({
-            name: 'buttonText',
-            title: 'Button Text',
-            type: 'string'
-        }),
-        defineField({
-            name: 'buttonLink',
-            title: 'Button Link',
-            type: 'url'
-        }),
-        defineField({
-            name: 'variant',
-            title: 'Variant',
-            type: 'string',
-            options: {
-                list: [
-                    { title: 'Primary', value: 'primary' },
-                    { title: 'Secondary', value: 'secondary' },
-                    { title: 'Accent', value: 'accent' }
-                ]
-            }
-        })
-    ],
-    preview: {
-        select: {
-            title: 'heading',
-            subtitle: 'buttonText'
-        },
-        prepare({ title, subtitle }) {
-            return {
-                title: title || 'CTA Block',
-                subtitle: `CTA: ${subtitle || ''}`
-            }
-        }
-    }
+  name: 'ctaBlock',
+  title: 'CTA Block (Legacy)',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'text',
+      title: 'Text',
+      type: 'string'
+    }),
+    defineField({
+      name: 'url',
+      title: 'URL',
+      type: 'url'
+    })
+  ]
 })
 
 export const featureListBlockType = defineType({
-    name: 'featureListBlock',
-    title: 'Feature List Block',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'title',
-            title: 'Title',
-            type: 'string'
-        }),
-        defineField({
-            name: 'features',
-            title: 'Features',
-            type: 'array',
-            of: [
-                {
-                    type: 'object',
-                    fields: [
-                        { name: 'title', title: 'Feature Title', type: 'string' },
-                        { name: 'description', title: 'Description', type: 'text' },
-                        {
-                            name: 'icon',
-                            title: 'Icon',
-                            type: 'string',
-                            options: {
-                                list: [
-                                    { title: 'Star', value: 'star' },
-                                    { title: 'Heart', value: 'heart' },
-                                    { title: 'Check', value: 'check' },
-                                    { title: 'Info', value: 'info' },
-                                    { title: 'Warning', value: 'warning' }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            ]
-        })
-    ],
-    preview: {
-        select: {
-            title: 'title'
-        },
-        prepare({ title }) {
-            return {
-                title: title || 'Feature List Block',
-                subtitle: 'Feature List'
-            }
-        }
-    }
+  name: 'featureListBlock',
+  title: 'Feature List Block (Legacy)',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'features',
+      title: 'Features',
+      type: 'array',
+      of: [{ type: 'string' }]
+    })
+  ]
 })
 
 export const testimonialBlockType = defineType({
-    name: 'testimonialBlock',
-    title: 'Testimonial Block',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'quote',
-            title: 'Quote',
-            type: 'text'
-        }),
-        defineField({
-            name: 'author',
-            title: 'Author',
-            type: 'string'
-        }),
-        defineField({
-            name: 'role',
-            title: 'Role/Company',
-            type: 'string'
-        }),
-        defineField({
-            name: 'image',
-            title: 'Author Image',
-            type: 'image',
-            options: { hotspot: true }
-        })
-    ],
-    preview: {
-        select: {
-            title: 'author',
-            subtitle: 'quote',
-            media: 'image'
-        },
-        prepare({ title, subtitle, media }) {
-            return {
-                title: title || 'Testimonial',
-                subtitle: subtitle ? `"${subtitle.substring(0, 50)}..."` : 'Testimonial',
-                media
-            }
-        }
-    }
+  name: 'testimonialBlock',
+  title: 'Testimonial Block (Legacy)',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'quote',
+      title: 'Quote',
+      type: 'text'
+    }),
+    defineField({
+      name: 'author',
+      title: 'Author',
+      type: 'string'
+    })
+  ]
 })
 
 export const accordionBlockType = defineType({
-    name: 'accordionBlock',
-    title: 'Accordion Block',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'title',
-            title: 'Title',
-            type: 'string'
-        }),
-        defineField({
-            name: 'items',
-            title: 'Accordion Items',
-            type: 'array',
-            of: [
-                {
-                    type: 'object',
-                    fields: [
-                        { name: 'title', title: 'Item Title', type: 'string' },
-                        { name: 'content', title: 'Content', type: 'blockContent' }
-                    ]
-                }
-            ]
+  name: 'accordionBlock',
+  title: 'Accordion Block (Legacy)',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'items',
+      title: 'Items',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string'
+            }),
+            defineField({
+              name: 'content',
+              title: 'Content',
+              type: 'blockContent'
+            })
+          ]
         })
-    ],
-    preview: {
-        select: {
-            title: 'title'
-        },
-        prepare({ title }) {
-            return {
-                title: title || 'Accordion Block',
-                subtitle: 'Accordion'
-            }
-        }
-    }
+      ]
+    })
+  ]
 })
 
 export const contactFormBlockType = defineType({
-    name: 'contactFormBlock',
-    title: 'Contact Form Block',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'title',
-            title: 'Form Title',
-            type: 'string'
-        }),
-        defineField({
-            name: 'description',
-            title: 'Description',
-            type: 'text'
-        }),
-        defineField({
-            name: 'formFields',
-            title: 'Form Fields',
-            type: 'array',
-            of: [
-                {
-                    type: 'object',
-                    fields: [
-                        {
-                            name: 'fieldType',
-                            title: 'Field Type',
-                            type: 'string',
-                            options: {
-                                list: [
-                                    { title: 'Text', value: 'text' },
-                                    { title: 'Email', value: 'email' },
-                                    { title: 'Phone', value: 'phone' },
-                                    { title: 'Textarea', value: 'textarea' },
-                                    { title: 'Select', value: 'select' },
-                                    { title: 'Checkbox', value: 'checkbox' }
-                                ]
-                            }
-                        },
-                        { name: 'label', title: 'Label', type: 'string' },
-                        { name: 'required', title: 'Required', type: 'boolean' },
-                        {
-                            name: 'options',
-                            title: 'Options (for select fields)',
-                            type: 'array',
-                            of: [{ type: 'string' }],
-                            hidden: ({ parent }) => parent?.fieldType !== 'select'
-                        }
-                    ]
-                }
-            ]
-        }),
-        defineField({
-            name: 'submitButtonText',
-            title: 'Submit Button Text',
-            type: 'string',
-            initialValue: 'Submit'
-        })
-    ],
-    preview: {
-        select: {
-            title: 'title'
-        },
-        prepare({ title }) {
-            return {
-                title: title || 'Contact Form',
-                subtitle: 'Form'
-            }
-        }
-    }
+  name: 'contactFormBlock',
+  title: 'Contact Form Block (Legacy)',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string'
+    })
+  ]
 })
 
 export const mapBlockType = defineType({
-    name: 'mapBlock',
-    title: 'Map Block',
-    type: 'object',
-    fields: [
-        defineField({
-            name: 'title',
-            title: 'Title',
-            type: 'string'
-        }),
-        defineField({
-            name: 'location',
-            title: 'Location',
-            type: 'geopoint'
-        }),
-        defineField({
-            name: 'description',
-            title: 'Description',
-            type: 'text'
-        })
-    ],
-    preview: {
-        select: {
-            title: 'title'
-        },
-        prepare({ title }) {
-            return {
-                title: title || 'Map Block',
-                subtitle: 'Map'
-            }
-        }
-    }
+  name: 'mapBlock',
+  title: 'Map Block (Legacy)',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'location',
+      title: 'Location',
+      type: 'string'
+    })
+  ]
 })
