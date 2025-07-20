@@ -9,7 +9,7 @@ export async function GET(request: Request) {
   const slug = searchParams.get('slug')
 
   // Check for secret to confirm this is a valid request
-  if (!secret || secret !== process.env.SANITY_PREVIEW_SECRET) {
+  if (!secret || secret !== process.env.NEXT_PUBLIC_SANITY_PREVIEW_SECRET) {
     return new Response('Invalid token', { status: 401 })
   }
 
@@ -19,12 +19,12 @@ export async function GET(request: Request) {
       const document = await client.fetch(
         `*[slug.current == $slug][0]`,
         { slug },
-        { 
-          token: process.env.SANITY_API_READ_TOKEN,
+        {
+          token: process.env.NEXT_PUBLIC_SANITY_API_READ_TOKEN,
           perspective: 'previewDrafts'
         }
       )
-      
+
       if (!document) {
         return new Response('Document not found', { status: 404 })
       }
